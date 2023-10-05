@@ -29,6 +29,7 @@ public class BoardService {
     }
 
     public Page<BoardDTO> findAll(int page) {
+        //좌변의 page는 jpa에서 인식하는 page 이고 우변은 프론트에서 받은 page이다.
         page = page - 1;
         int pageLimit = 5; //한페이지에 담길 데이터의 개수
         Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
