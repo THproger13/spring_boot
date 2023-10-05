@@ -47,4 +47,9 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+
+    public void update(BoardDTO boardDTO) {
+        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
+        boardRepository.save(boardEntity);
+    }
 }

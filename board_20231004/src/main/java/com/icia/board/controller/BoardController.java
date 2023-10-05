@@ -58,10 +58,10 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         return "/boardPages/boardUpdate";
     }
-    @PostMapping("/update")
-    public String update(@ModelAttribute BoardDTO boardDTO) {
-        boardService.save(boardDTO);
-        return "redirect:/{id}";
+    @PutMapping("/{id}")
+    public ResponseEntity update(@RequestBody BoardDTO boardDTO) {
+        boardService.update(boardDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
