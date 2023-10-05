@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>id</th>
+    <td th:text="${student.id}"></td>
+  </tr>
+  <tr>
+    <th>학번</th>
+    <td th:text="${student.studentNumber}"></td>
+  </tr>
+  <tr>
+    <th>이름</th>
+    <td th:text="${student.studentName}"></td>
+  </tr>
+  <tr>
+    <th>학과</th>
+    <td th:text="${student.studentMajor}"></td>
+  </tr>
+  <tr>
+    <th>전화번호</th>
+    <td th:text="${student.studentMobile}"></td>
+  </tr>
+</table>
+</body>
+</html>

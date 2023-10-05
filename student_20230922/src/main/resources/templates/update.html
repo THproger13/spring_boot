@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>update</h2>
+<form action="/student/update" method="post">
+    <input type="hidden" name="id" th:value="${student.id}">
+    <input type="text" name="studentNumber" th:value="${student.studentNumber}" placeholder="학번"> <br>
+    <input type="text" name="studentName" th:value="${student.studentName}" placeholder="이름"> <br>
+    <input type="text" name="studentMobile" th:value="${student.studentMobile}" placeholder="전화번호"> <br>
+    <select name="studentMajor" th:value="${student.studentMajor}">
+        <option value="컴퓨터공학" th:selected="${student.studentMajor == '컴퓨터공학'}">컴퓨터공학</option>
+        <option value="전자공학" th:selected="${student.studentMajor == '전자공학'}">전자공학</option>
+        <option value="경영학" th:selected="${student.studentMajor == '경영학'}">경영학</option>
+    </select>
+    <input type="submit" value="수정">
+</form>
+</body>
+</html>

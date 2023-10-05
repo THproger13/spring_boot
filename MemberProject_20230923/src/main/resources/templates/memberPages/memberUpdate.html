@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--th:replace: 이 속성은 현재 요소의 내용을 다른 템플릿 블록으로 대체하도록 지정.
+    여기서 component/config는 다른 템플릿을 가리키는 경로이며
+     :: config는 해당 템플릿 내의 블록 이름이다.
+~{}: 이 부분은 Thymeleaf의 리터럴 표현식 문법을 나타내며, 경로나 템플릿 이름을 가리킨다.-->
+    <th:block th:replace="~{component/config :: config}"></th:block>
+</head>
+<body>
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/nav :: nav}"></div>
+
+<h2 class="text-black-center">회원정보 수정 페이지</h2>
+
+<form class="form-control" action="/member/update"  method="post">
+    <input type="text" name="id" th:value="${member.id}" placeholder="id" readonly> <br>
+    <input type="text" name="memberEmail" th:value="${member.memberEmail}" placeholder="이메일"> <br>
+    <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
+    <input type="text" name="memberName" th:value="${member.memberName}" placeholder="이름"> <br>
+    <input type="date" name="memberBirth" th:value="${member.memberBirth}" placeholder="생년월일"> <br>
+    <input type="text" name="memberMobile" th:value="${member.memberMobile}" placeholder="전화번호"> <br>
+    <input type="button" value="수정" onclick="member_update()">
+</form>
+
+<div th:replace="~{component/footer :: footer}"></div>
+
+<script th:inline="javascript">
+    const member_update = () => {
+        const passDB = [[${member.memberPassword}]];
+        const passInput = document.querySelector('[name="memberPassword"]').value;
+        const id = document.querySelector('[name="id"]').value;
+        const name = document.querySelector('[name="memberName"]').value;
+        const birth = document.querySelector('[name="memberBirth"]').value;
+        const email = document.querySelector('[name="memberEmail"]').value;
+        const mobile = document.querySelector('[name="memberMobile"]').value;
+        if (passDB == passInput) {
+            // document.updateForm.submit();
+            axios({
+                method: "put",
+                url: `/member/${id}`,
+                data: {
+                    id: id,
+                    memberEmail: email,
+                    memberPassword: passInput,
+                    memberName: name,
+                    memberBirth: birth,
+                    memberMobile: mobile
+                }
+            }).then(res => {
+                alert("정보수정이 완료되었습니다. 로그인화면으로 이동합니다.");
+                location.href = "/member/login";
+            }).catch(err => {
+                alert("정보수정에 실패하였습니다!");
+            });
+        } else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
+    }
+
+</script>
+</body>
+</html>

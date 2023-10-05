@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{component/config :: config}"></th:block>
+</head>
+<body>
+
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/nav :: nav}"></div>
+
+<h2>회원 목록</h2>
+<table class="table table-dark table-hover mt-2">
+    <tr>
+        <th>id</th>
+        <th>이메일</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>생년월일</th>
+        <th>전화번호</th>
+        <th>조회</th>
+        <th>수정</th>
+        <th>삭제</th>
+    </tr>
+    <tr th:each="member: ${memberList}">
+        <td>
+            <a th:text="${member.id}"></a>
+        </td>
+        <td th:text="|이메일: ${member.memberEmail}|"></td>
+        <td th:text="|비밀번호: ${member.memberPassword}|"></td>
+        <td th:text="|이름: ${member.memberName}|"></td>
+        <td th:text="|생년월일: ${member.memberBirth}|"></td>
+        <td th:text="|전화번호: ${member.memberMobile}|"></td>
+        <td>
+            <button th:onclick="detail_fn([[${member.id}]])">조회</button>
+        </td>
+        <td>
+            <button th:onclick="update_fn([[${member.id}]])">수정</button>
+        </td>
+        <td>
+            <button th:onclick="delete_fn([[${member.id}]])">삭제</button>
+        </td>
+    </tr>
+</table>
+<div id="member-detail" name="member-detail">
+    <!--axios로 가져온 회원 정보가 뜨는 칸-->
+</div>
+
+<div th:replace="~{component/footer :: footer}"></div>
+
+</body>
+<script th:inline="javascript">
+
+    const detail_fn = (id) => {
+        axios({
+            method: "post", // http request method(get, post, put, delete....)
+            url: "/member/axios_detail",
+            params: {
+                id : id
+            }
+        }).then( res => {
+            // 요청 성공 후 서버에서 200 응답
+            console.log("res", res);
+            const member = res.data;
+            let memberDetailResultHTML = '<table class="table table-info">';
+            memberDetailResultHTML += '<tr>';
+            memberDetailResultHTML += '<td>이메일: ' + member.memberEmail + '</td>';
+            memberDetailResultHTML += '<td>비밀번호: ' + member.memberPassword + '</td>';
+            memberDetailResultHTML += '<td>이름: ' + member.memberName + '</td>';
+            memberDetailResultHTML += '<td>생일: ' + member.memberBirth + '</td>';
+            memberDetailResultHTML += '<td>전화번호: ' + member.memberMobile + '</td>';
+            memberDetailResultHTML += '</tr>';
+            memberDetailResultHTML += '</table>';
+
+            // 회원 정보를 표시할 div 엘리먼트에 HTML을 추가합니다.
+            const memberDetail = document.getElementById("member-detail");
+            memberDetail.innerHTML = memberDetailResultHTML;
+        }).catch( err => {
+            // 요청 실패 또는 서버에서 4xx, 5xx 응답
+            console.log("err", err);
+        });
+    }
+
+    const update_fn = (id) => {
+        location.href = `/member/update/${id}`;
+    }
+    const delete_fn = (id) => {
+        if(confirm("@{id}회원정보를 삭제 하시겠습니까?")) {
+            location.href = `/member/delete/${id}`;
+        }else {
+            location.href = `/members`;
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <th>학번</th>
+        <th>이름</th>
+        <th>학과</th>
+        <th>전화번호</th>
+        <th>조회</th>
+        <th>수정</th>
+    </tr>
+    <tr th:each="student: ${studentList}">
+        <td>
+            <a th:href="@{|/student/${student.id}|}" th:text="${student.id}"></a>
+        </td>
+        <td th:text="|학번: ${student.studentNumber}|"></td>
+        <td th:text="${student.studentName}"></td>
+        <td th:text="${student.studentMajor}"></td>
+        <td th:text="${student.studentMobile}"></td>
+        <td>
+            <button th:onclick="detail([[${student.id}]])">조회</button>
+        </td>
+        <td>
+            <button th:onclick="update_fn([[${student.id}]])">수정</button>
+        </td>
+        <td>
+            <button th:onclick="delete_fn([[${student.id}]])">삭제</button>
+        </td>
+    </tr>
+</table>
+</body>
+<script th:inline="javascript">
+    const detail = (id) => {
+        location.href = `/student/${id}`;
+        // location.href = "/student/" + id;
+    }
+    const update_fn = (id) => {
+        location.href = `/student/update/${id}`;
+    }
+    const delete_fn = (id) => {
+        if(confirm("@{id}학생 정보를 삭제하시겠습니까??")) {
+            location.href = `/student/delete/${id}`;
+        }else {
+            location.href = `/students`;
+        }
+    }
+</script>
+</html>

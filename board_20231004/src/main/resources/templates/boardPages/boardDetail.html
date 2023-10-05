@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <th>글 작성자</th>
+        <th>작성 시간</th>
+        <th>글 제목</th>
+        <th>글 내용</th>
+        <th>조회수</th>
+        <th>글 수정</th>
+        <th>글 삭제</th>
+    </tr>
+    <tr th:value="|${board}|">
+        <td th:text="|${board.id}|"></td>
+        <td th:text="|${board.boardWriter}|"></td>
+        <td th:text="${board.createdAt}"></td>
+        <td th:text="${board.boardTitle}"></td>
+        <td th:text="|${board.boardContents}|"></td>
+        <td th:text="|${board.boardHits}|"></td>
+        <td>
+            <button onClick="req_fn('update')">수정</button>
+        </td>
+        <td>
+            <button onClick="req_fn('delete')">삭제</button>
+        </td>
+    </tr>
+</table>
+</body>
+<script th:inline="javascript">
+    const req_fn = (type) => {
+        document.querySelector("#pass-check").innerHTML =
+            `<input type="text" id="board-pass" placeholder="비밀번호">
+                <input type="button" onclick="pass_check('${type}')" value="확인">`;
+    }
+
+    const pass_check = (type) => {
+        const passInput = document.getElementById("board-pass").value;
+        const passDB = [[${board.boardPass}]];
+        const id = [[${board.id}]];
+        if (passInput == passDB) {
+            if (type == "update") {
+                location.href = `/board/update/${id}`;
+            } else if (type == "delete") {
+                // location.href = `/board/delete/${id}`;
+                axios({
+                    method: "delete",
+                    url: `/board/${id}`
+                }).then(res => {
+                    location.href = "/board";
+                }).catch(err => {
+                    alert("삭제 실패!");
+                });
+            }
+        } else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
+    }
+</script>
+</html>

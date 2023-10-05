@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--config는 공통된 css나 javascript를 넣어서 페이지들에 넣어줄 수 있다. -->
+
+<!--<th:block th:fragment="config">: 이 부분은 Thymeleaf에서
+사용되는 블록(구성 요소)을 정의.
+th:fragment 속성은 이 블록의 이름을 "config"로 설정.-->
+
+<th:block th:fragment="config">
+  <meta charset="UTF-8">
+  <title>Member Project</title>
+<link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <script th:src="@{/js/axios.min.js}"></script>
+</th:block>
+
+<body>
+
+</body>
+</html>

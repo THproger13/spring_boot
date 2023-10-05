@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>글 수정</h2>
+<form class="form-control" action="/board/update"  method="post" >
+    <input type="text" name="boardWriter" th:value="${board.boardWriter}" placeholder="글 작성자" > <br>
+    <input type="text" name="boardTitle" th:value="${board.boardTitle}" placeholder="글제목"> <br>
+    <textarea placeholder="글 내용" th:value="${board.boardContents}" name="boardContents" cols="50" rows="10"></textarea> <br>
+    <input type="hidden" name="id" th:value="${board.id}">
+    <input type="hidden" name="boardHits" th:value="${board.boardHits}">
+    <input type="hidden" name="boardPass" th:value="${board.boardPass}">
+    <input type="submit" value="글 수정">
+</form>
+</body>
+
+</html>
