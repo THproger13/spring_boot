@@ -7,12 +7,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
-@Builder //빌더란
+@Builder
+
+//빌더 패턴은 디자인 패턴의 생성 유형중 하나로 특히 많은 멤버 변수를 가진 클래스나,
+// 많은 인자를 필요로 하는 생성자의 경우 객체 생성을 더 명확하고 가독성 있게 도와줍니다.
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardDTO {
@@ -23,6 +28,10 @@ public class BoardDTO {
     private String boardContents;
     private String createdAt;
     private int boardHits;
+    private MultipartFile boardFile;
+    private int fileAttached;
+    private String originalFileName;
+    private String storedFileName;
 
 
     public static BoardDTO toDTO(BoardEntity boardEntity) {

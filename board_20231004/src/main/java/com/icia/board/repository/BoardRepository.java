@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
            update board_table set board_hits=board_hits+1 where id=?
            jpql(java persistence query language)
         */
-    @Modifying // insert, update, delete
+    @Modifying // insert, update, delete (특정 컬럼을 )
     @Query(value = "update BoardEntity b set b.boardHits=b.boardHits+1 where b.id=:id")
 //    @Query(value = "update board_table set board_hits=board_hits+1 where id=:id", nativeQuery = true)
     void increaseHits(@Param("id") Long id);

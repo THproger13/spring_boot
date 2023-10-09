@@ -7,11 +7,12 @@
 
 <h2>글 작성 페이지</h2>
 
-<form class="form-control" action="/board/save"  method="post" >
+<form class="form-control" action="/board/save"  method="post" enctype="multipart/form-data">
     <input type="text" name="boardWriter" placeholder="글 작성자" > <br>
     <input type="text" name="boardTitle" placeholder="글제목"> <br>
     <input type="text" name="boardPass" placeholder="비밀번호"> <br>
     <textarea placeholder="글 내용" name="boardContents" cols="50" rows="10"></textarea> <br>
+    <input type="file" name="boardFile" class="form-control">
     <input type="submit" value="글 작성">
 </form>
 

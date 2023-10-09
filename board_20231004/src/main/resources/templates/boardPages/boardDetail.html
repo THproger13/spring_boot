@@ -53,6 +53,14 @@
 
 </body>
 <script th:inline="javascript">
+
+    const list_fn = () => {
+        const page = [[${page}]]
+        const type = [[${type}]]
+        const q = [[${q}]]
+        location.href = `/board?page=${page}&type=${type}&q=${q}`;
+    }
+
     const req_fn = (type) => {
         document.querySelector("#pass-check").innerHTML =
             `<input type="text" id="board-pass" placeholder="비밀번호">
