@@ -24,7 +24,7 @@ public class MemberController {
 
     @PostMapping("/save")
     public String saveForm(@ModelAttribute("member") MemberDTO memberDTO) {
-
+        memberService.save(memberDTO);
         return "redirect:/";
     }
 

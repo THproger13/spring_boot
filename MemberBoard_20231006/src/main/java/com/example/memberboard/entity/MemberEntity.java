@@ -1,5 +1,6 @@
 package com.example.memberboard.entity;
 
+import com.example.memberboard.dto.MemberDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,4 +45,15 @@ public class MemberEntity {
 
     @Column
     private int memberProfileAttached;
+
+    public MemberEntity toEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        memberEntity.setMemberMobile(memberDTO.getMemberMobile());
+        memberEntity.setMemberBirth(memberDTO.getMemberBirth());
+        memberEntity.setCreatedAt(LocalDateTime.DateTimeFormat(memberDTO.getCreatedAt()));
+        return memberEntity;
+    }
 }

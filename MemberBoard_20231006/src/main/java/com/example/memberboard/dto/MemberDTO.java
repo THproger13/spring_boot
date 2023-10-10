@@ -25,6 +25,4 @@ public class MemberDTO {
     private String originalProfileName;
     private String storedProfileName;
 
-
-
 }
