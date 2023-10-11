@@ -1,5 +1,6 @@
 package com.example.memberboard.dto;
 
+import com.example.memberboard.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class MemberDTO {
 
-    private String id;
+    private Long id;
     private String memberEmail;
     private String memberPassword;
     private String memberName;
@@ -28,5 +29,17 @@ public class MemberDTO {
     private int ProfileAttached;
     private String originalProfileName;
     private String storedProfileName;
+
+    public static MemberDTO toDTO(MemberEntity memberEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(memberEntity.getId());
+        memberDTO.setMemberEmail(memberEntity.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberPassword());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        memberDTO.setMemberBirth(memberEntity.getMemberBirth());
+        memberDTO.setMemberMobile(memberEntity.getMemberMobile());
+    return memberDTO;
+    }
+
 
 }

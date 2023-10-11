@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="~{component/config :: config}"></th:block>
 </head>
 <body>
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/nav :: nav}"></div>
+
 <h2>회원가입 페이지</h2>
 <form class="form-control" multiple action="/member/save" method="post" enctype="multipart/form-data">
     <input type="text" name="memberEmail" placeholder="이메일" onblur="email_check()"> <br>
+    <p id = "email-dup-check-result" ></p><br>
     <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
     <input type="text" name="memberName" placeholder="이름"> <br>
     <input type="text" name="memberMobile" placeholder="전화번호"> <br>
@@ -15,22 +18,32 @@
     <input type="file" name="memberProfile" placeholder="프로필 사진"> <br>
     <input type="submit" value="회원가입" class="btn btn-info">
 </form>
+<div th:replace="~{component/footer :: footer}"></div>
+
 
 <script th:inline="javascript">
     const email_check = () => {
-        const email = document.querySelector(`[name="memberEmail"]`).value;
+        const inputEmail = document.querySelector(`[name="memberEmail"]`).value;
+        const emailResult = document.getElementById("email-dup-check-result");
+
         axios({
             method: "post", // http request method(get, post, put, delete....)
             url: "/member/dup-check",
             data: {
-                memberEmail : email
+                memberEmail : inputEmail
             }
         }).then( res => {
             // 요청 성공 후 서버에서 200 응답
+            emailResult.innerHTML = "사용가능한 이메일입니다!";
+            emailResult.style.color = "green";
             console.log("res", res);
         }).catch( err => {
             // 요청 실패 또는 서버에서 4xx, 5xx 응답
-            console.log("err", err);
+            if (err.response && err.response.status === 409) { // 409는 HttpStatus.CONFLICT를 의미합니다.
+                emailResult.innerHTML = "이미 사용중인 이메일입니다!";
+                emailResult.style.color = "red";
+                console.log("err", err);
+            }
         });
     }
 </script>

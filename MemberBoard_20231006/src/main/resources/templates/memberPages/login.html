@@ -6,6 +6,7 @@
 <body>
 <div th:replace="~{component/header :: header}"></div>
 <div th:replace="~{component/nav :: nav}"></div>
+<h2>로그인 페이지</h2>
 <div class="container">
     <form action="/member/login" method="post">
         <input type="hidden" name="redirectURI" th:value="${redirectURI}">

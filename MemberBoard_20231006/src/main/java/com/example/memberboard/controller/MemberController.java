@@ -3,6 +3,8 @@ package com.example.memberboard.controller;
 import com.example.memberboard.dto.MemberDTO;
 import com.example.memberboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +48,20 @@ public class MemberController {
             return "redirect:" + redirectURI;
         } else {
             return "/memberPages/login";
+        }
+    }
+
+    @PostMapping("/dup-check")
+    @ResponseBody
+    public ResponseEntity<Void> duplicateCheck(@RequestParam("memberEmail") String memberEmail) {
+        System.out.println("Received email: " + memberEmail); // 로그 출력
+        MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
+        if(memberDTO == null) {
+            System.out.println("Email is available"); // 로그 출력
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            System.out.println("Email is already in use"); // 로그 출력
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
     @GetMapping("/mypage")
