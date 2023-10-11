@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -51,6 +52,12 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loginEmail");
+        return "redirect:/";
+    }
+
     @PostMapping("/dup-check")
     @ResponseBody
     public ResponseEntity<Void> duplicateCheck(@RequestParam("memberEmail") String memberEmail) {
@@ -63,6 +70,13 @@ public class MemberController {
             System.out.println("Email is already in use"); // 로그 출력
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+    }
+
+    @GetMapping("/list")
+    public String findAll(Model model) {
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList", memberDTOList);
+        return "/memberPages/list";
     }
     @GetMapping("/mypage")
     public String myPage () {

@@ -49,7 +49,7 @@ public class MemberEntity {
     private LocalDateTime updatedAt;
 
     @Column
-    private int ProfileAttached;
+    private int profileAttached;
 
     @OneToMany(mappedBy = "memberEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MemberProfileEntity> memberProfileEntityList = new ArrayList<>();
