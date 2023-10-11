@@ -59,6 +59,11 @@ public class BoardEntity {
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntityList = new ArrayList<>();
 
+    //BoardEntity는 MemberEntity를 참조하는 자식 엔티티이므로 @ManyToOne을 사용한다.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private MemberEntity memberEntity;
+
 
 
 }

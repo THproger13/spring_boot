@@ -38,6 +38,10 @@ public class CommentEntity {
     @JoinColumn(name = "board_id")
     private BoardEntity boardEntity;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private MemberEntity memberEntity;
+
 //    public static CommentEntity toSaveEntity(BoardEntity boardEntity, CommentDTO commentDTO) {
 //        CommentEntity commentEntity = new CommentEntity();
 //        commentEntity.setCommentWriter(commentDTO.getCommentWriter());

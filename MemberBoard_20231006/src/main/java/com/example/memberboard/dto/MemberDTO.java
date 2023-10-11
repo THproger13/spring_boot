@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,9 +22,10 @@ public class MemberDTO {
     private String memberMobile;
     private String memberBirth;
     private String createdAt;
+    private String updatedAt;
 
     private MultipartFile memberProfile;
-    private int profileAttached;
+    private int ProfileAttached;
     private String originalProfileName;
     private String storedProfileName;
 

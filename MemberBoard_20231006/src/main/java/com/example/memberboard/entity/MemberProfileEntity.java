@@ -24,4 +24,13 @@ public class MemberProfileEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id") // DB에 생성될 참조 컬럼의 이름
     private MemberEntity memberEntity; // 부모 엔티티 타입으로 정의
+
+    public static MemberProfileEntity toSaveProFile(MemberEntity savedEntity, String originalProfileName, String storedProfileName) {
+        MemberProfileEntity memberProfileEntity = new MemberProfileEntity();
+        memberProfileEntity.setOriginalProfileName(originalProfileName);
+        memberProfileEntity.setStoredProfileName(storedProfileName);
+        memberProfileEntity.setMemberEntity(savedEntity);
+        return memberProfileEntity;
+    }
+
 }

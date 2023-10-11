@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String saveForm(@ModelAttribute("member") MemberDTO memberDTO) {
+    public String saveForm(@ModelAttribute MemberDTO memberDTO) throws IOException {
         memberService.save(memberDTO);
         return "redirect:/";
     }
