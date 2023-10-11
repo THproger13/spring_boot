@@ -29,7 +29,7 @@
         <td th:text="|생년월일: ${member.memberBirth}|"></td>
         <td th:text="|전화번호: ${member.memberMobile}|"></td>
         <td>
-            <button th:onclick="delete_fn([[${member.id}]])">삭제</button>
+            <button th:onclick="'delete_fn(' + ${member.id} + ');'">삭제</button>
         </td>
     </tr>
 </table>
@@ -40,8 +40,8 @@
 <script th:inline="javascript">
 
     const delete_fn = (id) => {
-        if(confirm("@{id}회원정보를 삭제 하시겠습니까?")) {
-            location.href = `/member/delete/${id}`;
+        if(confirm(id + "회원정보를 삭제 하시겠습니까?")) {
+            location.href = `/member/delete/` + id;
         }else {
             location.href = `/member/list`;
         }
