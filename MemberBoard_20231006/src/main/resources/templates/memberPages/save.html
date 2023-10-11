@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>회원가입 페이지</h2>
+<form class="form-control" multiple action="/member/save" method="post" enctype="multipart/form-data">
+    <input type="text" name="memberEmail" placeholder="이메일" onblur="email_check()"> <br>
+    <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
+    <input type="text" name="memberName" placeholder="이름"> <br>
+    <input type="text" name="memberMobile" placeholder="전화번호"> <br>
+    <input type="text" name="memberBirth" placeholder="생년월일"> <br>
+    <input type="file" name="memberProfile" placeholder="프로필 사진"> <br>
+    <input type="submit" value="회원가입" class="btn btn-info">
+</form>
+
+<script th:inline="javascript">
+    const email_check = () => {
+        const email = document.querySelector(`[name="memberEmail"]`).value;
+        axios({
+            method: "post", // http request method(get, post, put, delete....)
+            url: "/member/dup-check",
+            data: {
+                memberEmail : email
+            }
+        }).then( res => {
+            // 요청 성공 후 서버에서 200 응답
+            console.log("res", res);
+        }).catch( err => {
+            // 요청 실패 또는 서버에서 4xx, 5xx 응답
+            console.log("err", err);
+        });
+    }
+</script>
+</body>
+</html>
