@@ -3,14 +3,20 @@ package com.example.memberboard.controller;
 import com.example.memberboard.dto.MemberDTO;
 import com.example.memberboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import org.springframework.core.io.UrlResource;
+
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -43,13 +49,34 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
         if (loginResult) {
             session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            if ("admin".equals(memberDTO.getMemberEmail())) {
-                return "/memberPages/admin";
-            }
             return "redirect:" + redirectURI;
         } else {
             return "/memberPages/login";
         }
+    }
+    @GetMapping("/mypage")
+    public String myPage (HttpSession session, Model model) {
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member", memberDTO);
+        return "/memberPages/main";
+    }
+
+    @GetMapping("/profile-image/{filename}")
+    public ResponseEntity<UrlResource> getProfileImage(@PathVariable String filename) throws IOException {
+        Path path = Paths.get("C:\\springboot_profile\\", filename);
+        UrlResource urlResource = new UrlResource(path.toUri());
+
+        if (urlResource.exists() || urlResource.isReadable()) {
+            return ResponseEntity.ok().body(urlResource);
+        } else {
+            throw new RuntimeException("Could not read the file!");
+        }
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "/memberPages/admin";
     }
 
     @GetMapping("/member/logout")
@@ -78,13 +105,11 @@ public class MemberController {
         model.addAttribute("memberList", memberDTOList);
         return "/memberPages/list";
     }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         memberService.deleteById(id);
         return "redirect:/member/list";
     }
-    @GetMapping("/mypage")
-    public String myPage () {
-        return "/memberPages/main";
-    }
+
 }

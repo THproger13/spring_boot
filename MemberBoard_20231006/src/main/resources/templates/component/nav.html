@@ -20,11 +20,15 @@
           <li class="nav-item">
             <a class="nav-link" href="/member/login">로그인</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/board">글목록</a>
+          <li th:if="${session.scope == 'admin'}" class="nav-item">
+            <a class="nav-link" href="/member/admin">관리자 페이지</a>
           </li>
+          <li th:unless="${session.scope == 'admin'}" class="nav-item">
+            <a class="nav-link" href="/board/list">글목록</a>
+          </li>
+
         </ul>
-        <form action="/board" method="get" class="d-flex" role="search">
+        <form action="/board/list" method="get" class="d-flex" role="search">
           <select name="type" class="form-select me-2 w-50">
             <option value="boardWriter">작성자</option>
             <option value="boardTitle">제목</option>
@@ -36,11 +40,7 @@
       </div>
     </div>
   </nav>
-  <script>
-    const search_func = () => {
-      console.log("검색함수");
-    }
-  </script>
+
 </div>
 
 </body>
