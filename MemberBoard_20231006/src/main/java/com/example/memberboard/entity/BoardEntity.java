@@ -70,7 +70,7 @@ public class BoardEntity {
 
     public static BoardEntity toSaveEntity(MemberEntity memberEntity, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.
+        boardEntity.setMemberEntity(memberEntity);
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
@@ -95,6 +95,7 @@ public class BoardEntity {
 
     public static BoardEntity toSaveEntityWithFile(MemberEntity memberEntity, BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
+        boardEntity.setMemberEntity(memberEntity);
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardPass(boardDTO.getBoardPass());

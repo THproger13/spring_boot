@@ -23,10 +23,10 @@
           <li th:if="${session.scope == 'admin'}" class="nav-item">
             <a class="nav-link" href="/member/admin">관리자 페이지</a>
           </li>
-          <li th:unless="${session.scope == 'admin'}" class="nav-item">
+          <li th:if="${session.scope != 'admin'}" class="nav-item">
             <a class="nav-link" href="/board/list">글 목록</a>
           </li>
-          <li th:unless="${session.scope == 'admin'}" class="nav-item">
+          <li th:if="${session.scope != 'admin'}" class="nav-item">
             <a class="nav-link" href="/board/save">글 작성</a>
           </li>
 
