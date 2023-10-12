@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:replace="~{component/config :: config}"></th:block>
+</head>
+<body>
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/nav :: nav}"></div>
+
+<h2>글 작성 페이지</h2>
+<form class="form-control" multiple action="/board/save" method="post" enctype="multipart/form-data">
+  <input type="text" name="boardWriter" class="form-control"
+         th:value="${session.loginEmail}" placeholder="작성자" readonly> <br>
+  <input type="text" name="boardTitle" placeholder="글 제목"> <br>
+  <input type="text" name="boardPass" placeholder="비밀번호"> <br>
+  <textarea placeholder="글 내용" name="boardContents" cols="50" rows="10"></textarea> <br>
+  <input type="file" name="boardFile" placeholder="프로필 사진"> <br>
+  <input type="submit" value="글 작성" class="btn btn-info">
+</form>
+<div th:replace="~{component/footer :: footer}"></div>
+
+</body>
+</html>

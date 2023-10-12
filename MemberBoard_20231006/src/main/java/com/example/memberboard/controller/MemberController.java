@@ -9,10 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import org.springframework.core.io.UrlResource;
-
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Path;
