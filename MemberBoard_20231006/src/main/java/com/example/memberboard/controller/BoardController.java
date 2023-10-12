@@ -31,7 +31,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String findAll(Model model, @RequestParam(value = "type", required = false) String type,
-                       @RequestParam(value = "q", required = false) String q,
+                       @RequestParam(value = "q", required = false, defaultValue = "") String q,
                        @RequestParam(value = "page",required = false , defaultValue = "1") int page) {
         Page<BoardDTO> boardDTOList = boardService.findAll(page, type, q);
 

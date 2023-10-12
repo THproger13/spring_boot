@@ -75,7 +75,7 @@ public class MemberController {
         return "/memberPages/admin";
     }
 
-    @GetMapping("/member/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("loginEmail");
         return "redirect:/";

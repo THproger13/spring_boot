@@ -25,9 +25,9 @@ public class BoardFileEntity {
     @JoinColumn(name = "board_id") // DB에 생성될 참조 컬럼의 이름
     private BoardEntity boardEntity; // 부모 엔티티 타입으로 정의
 
-
     public static BoardFileEntity toSaveBoardFile(BoardEntity savedEntity, String originalFilename, String storedFileName) {
         BoardFileEntity boardFileEntity = new BoardFileEntity();
+        boardFileEntity.setBoardEntity(savedEntity);
         boardFileEntity.setOriginalFileName(originalFilename);
         boardFileEntity.setStoredFileName(storedFileName);
         boardFileEntity.setBoardEntity(savedEntity);

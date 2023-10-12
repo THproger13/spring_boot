@@ -17,16 +17,20 @@
           <li class="nav-item">
             <a class="nav-link" href="/member/save">회원가입</a>
           </li>
-          <li class="nav-item">
+          <li th:if="${session.loginEmail == null}" class="nav-item">
             <a class="nav-link" href="/member/login">로그인</a>
           </li>
-          <li th:if="${session.scope == 'admin'}" class="nav-item">
+          <li th:if="${session.loginEmail != null}" class="nav-item">
+            <a class="nav-link" href="/member/logout">로그아웃</a>
+          </li>
+          <li th:if="${session.loginEmail == 'admin'}" class="nav-item">
             <a class="nav-link" href="/member/admin">관리자 페이지</a>
           </li>
-          <li th:if="${session.scope != 'admin'}" class="nav-item">
+          <!-- 로그인 이메일이 admin이 아닌 경우 글 목록 및 글 작성 링크를 보여줌 -->
+          <li th:if="${session.loginEmail != 'admin'}" class="nav-item">
             <a class="nav-link" href="/board/list">글 목록</a>
           </li>
-          <li th:if="${session.scope != 'admin'}" class="nav-item">
+          <li th:if="${session.loginEmail != 'admin'}" class="nav-item">
             <a class="nav-link" href="/board/save">글 작성</a>
           </li>
 

@@ -120,6 +120,4 @@ public class BoardEntity {
         boardEntity.setFileAttached(1);
         return boardEntity;
     }
-
-
 }
